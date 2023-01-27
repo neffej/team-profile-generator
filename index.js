@@ -1,16 +1,21 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
-const askManagerQuestions = [
+const team = []
+
+const initQuestions = [
     {
         type: 'confirm',
         message: "Hello! Are you ready to build your team?",
         name: 'intro'
     },
+];
+
+const managerQuestions = [
     {
         type:'input',
         name: 'name',
-        message: "What is the manager's name"
+        message: "Please enter the manager's name:"
     },
     {
         type: 'input',
@@ -31,11 +36,11 @@ const askManagerQuestions = [
         type: 'list',
         name: 'whoNext',
         message: "Would you like to add another employee?",
-        choices: ["Yes - an Engineer", "Yes - an Intern", "No, my team is complete"]
+        choices: ["Engineer", "Intern", "No, my team is complete"]
     }
 ]
 
-const askEngineerQuestions = [
+const engineerQuestions = [
     {
         type:'input',
         name: 'name',
@@ -60,11 +65,10 @@ const askEngineerQuestions = [
         type: 'list',
         name: 'whoNext',
         message: "Would you like to add another employee?",
-        choices: ["Yes - an Engineer", "Yes - an Intern", "No, my team is complete"]
-    }
+        choices: ["Engineer", "Intern", "No, my team is complete"]    }
 ]
 
-const askInternQuestions = [
+const internQuestions = [
     {
         type:'input',
         name: 'name',
@@ -89,7 +93,41 @@ const askInternQuestions = [
         type: 'list',
         name: 'whoNext',
         message: "Would you like to add another employee?",
-        choices: ["Yes - an Engineer", "Yes - an Intern", "No, my team is complete"]
-    }
+        choices: ["Engineer", "Intern", "No, my team is complete"]    }
 ]
+// function generateProfiles
 
+
+function askQuestions(array) {
+    inquirer.prompt(array)
+    .then((response) => {
+        team.push(response);
+        switch(response.whoNext){
+            case 'Engineer': 
+                askQuestions(engineerQuestions);
+            break;
+            case "Intern": 
+                askQuestions(internQuestions)
+            break;
+            case 'No, my team is complete': 
+                console.info(team);
+            break;
+        }
+    console.info(team);
+    })};
+
+
+function init(){
+    console.info(team)
+    inquirer.prompt(initQuestions)
+    .then((response) => {
+        console.info(response)
+        if(response.intro === false){
+            console.info( "Thank you! Run node index.js when you are ready to build your team")
+        }else{
+            askQuestions(managerQuestions)
+        }})};
+
+
+
+init();
