@@ -7,6 +7,9 @@ const Intern = require ('./lib/Intern')
 const Engineer = require ('./lib/Engineer')
 const Employee = require ('./lib/Employee')
 
+// Helper Functions
+const writeHTML = require('./src/writeHTML')
+
 const team = [];
 const profiles = [];
 
@@ -127,6 +130,9 @@ function generateHTML(team){
             profiles.push(employee);
     }})
     console.log(profiles);
+    
+    fs.writeFile('./dist/index.html',writeHTML, (err) =>
+        err ? console.error(err) : console.log('Success!'))
 }
 
 // Generic function to load question arrays into inquirer.prompt. Responses are pushed to team array.
@@ -147,9 +153,6 @@ function askQuestions(array) {
         }
     console.info(team);
     })
-
-
-
 };
 
 
