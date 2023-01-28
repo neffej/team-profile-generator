@@ -113,14 +113,16 @@ const internQuestions = [
 ];
 
 function appendMCards(element){
+    console.log(element)
             let object = element;
             let card = managerCard(object)
-        
+
             fs.appendFile('./dist/index.html', card, (err) =>
             err ? console.error(err) : console.log ('Card appended!'))
 }
 
 function appendECards(element){
+    console.log(element)
     let object = element;
     let card = engineerCard(object)
 
@@ -131,7 +133,7 @@ function appendECards(element){
 function appendICards(element){
             let object = element;
             let card = internCard(object)
-        
+
             fs.appendFile('./dist/index.html', card, (err) =>
             err ? console.error(err) : console.log ('Card appended!'))  
     }
@@ -144,7 +146,6 @@ function generateHTML(team){
         if(member.officeNumber != undefined){
             const { officeNumber } = member
             let employee = new Manager(name, id, email, officeNumber)
-            console.info(employee.getRole());
             info.push(employee);
         }else if(member.github != undefined){
             const { github} = member
