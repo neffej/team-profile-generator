@@ -1,4 +1,3 @@
-
 const  managerCard = (object) => { 
     return`<div class="card text-white bg-primary mb-3 col-2 ">
 <div class="card-header text-center">${object.getRole()}  <i class="fa-solid fa-mug-saucer text-success"></i>   ID:<span class="text-info">  ${object.getID()}</span></div>

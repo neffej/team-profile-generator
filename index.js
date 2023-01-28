@@ -112,31 +112,29 @@ const internQuestions = [
         choices: ["Engineer", "Intern", "No, my team is complete"]    }
 ];
 
-function appendCards(element){
-    console.log(element.getRole())
-    const { name, id, email, officeNumber}  = element;
-    let object = element;
-let card = managerCard(object)
-console.log(card)
-
-    // fs.appendFile('./dist/index.html', card, (err) =>
-    // err ? console.error(err) : console.log ('Card appended!'))  
-
-    // switch(element){
-    //     // case "Manager":
-    //     //     fs.appendFile('./dist/index.html', managerCard(element), (err) =>
-    //     //     err ? console.error(err) : console.log ('Card appended!'))
-    //     //     break;
-    //     // case "Engineer":
-    //     //     fs.appendFile('./dist/index.html', element(engineerCard), (err) =>
-    //     //     err ? console.error(err) : console.log ('Card appended!'))
-    //     //     break;
-    //     // case "Intern":
-    //     //     fs.appendFile('./dist/index.html', element(internCard), (err) =>
-    //     //     err ? console.error(err) : console.log ('Card appended!'))
-    //     //     break;
-    // }
+function appendMCards(element){
+            let object = element;
+            let card = managerCard(object)
+        
+            fs.appendFile('./dist/index.html', card, (err) =>
+            err ? console.error(err) : console.log ('Card appended!'))
 }
+
+function appendECards(element){
+    let object = element;
+    let card = engineerCard(object)
+
+    fs.appendFile('./dist/index.html', card, (err) =>
+    err ? console.error(err) : console.log ('Card appended!')) 
+}
+
+function appendICards(element){
+            let object = element;
+            let card = internCard(object)
+        
+            fs.appendFile('./dist/index.html', card, (err) =>
+            err ? console.error(err) : console.log ('Card appended!'))  
+    }
 
 function generateHTML(team){
     console.info("hello!")
@@ -166,11 +164,11 @@ function generateHTML(team){
 
     info.forEach(employee =>{
         if(employee.hasOwnProperty('officeNumber')){
-            appendCards(employee)
+            appendMCards(employee)
         }else if(employee.hasOwnProperty('github')){
-            appendCards(employee)
+            appendECards(employee)
         }else{
-            appendCards(employee)
+            appendICards(employee)
         }})
 
     fs.appendFile('./dist/index.html', endHTML, (err) =>
