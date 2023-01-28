@@ -113,20 +113,29 @@ const internQuestions = [
 ];
 
 function appendCards(element){
-    switch(element){
-        case "manager":
-            fs.appendFile('./dist/index.html', managerCard,(err) =>
-            err ? console.error(err) : console.log ('Card appended!'))
-            break;
-        case "engineer":
-            fs.appendFile('./dist/index.html', engineerCard, (err) =>
-            err ? console.error(err) : console.log ('Card appended!'))
-            break;
-        case "intern":
-            fs.appendFile('./dist/index.html', internCard, (err) =>
-            err ? console.error(err) : console.log ('Card appended!'))
-            break;
-    }
+    console.log(element.getRole())
+    const { name, id, email, officeNumber}  = element;
+    let object = element;
+let card = managerCard(object)
+console.log(card)
+
+    // fs.appendFile('./dist/index.html', card, (err) =>
+    // err ? console.error(err) : console.log ('Card appended!'))  
+
+    // switch(element){
+    //     // case "Manager":
+    //     //     fs.appendFile('./dist/index.html', managerCard(element), (err) =>
+    //     //     err ? console.error(err) : console.log ('Card appended!'))
+    //     //     break;
+    //     // case "Engineer":
+    //     //     fs.appendFile('./dist/index.html', element(engineerCard), (err) =>
+    //     //     err ? console.error(err) : console.log ('Card appended!'))
+    //     //     break;
+    //     // case "Intern":
+    //     //     fs.appendFile('./dist/index.html', element(internCard), (err) =>
+    //     //     err ? console.error(err) : console.log ('Card appended!'))
+    //     //     break;
+    // }
 }
 
 function generateHTML(team){
@@ -137,7 +146,7 @@ function generateHTML(team){
         if(member.officeNumber != undefined){
             const { officeNumber } = member
             let employee = new Manager(name, id, email, officeNumber)
-            employee.getRole();
+            console.info(employee.getRole());
             info.push(employee);
         }else if(member.github != undefined){
             const { github} = member
@@ -150,25 +159,22 @@ function generateHTML(team){
             employee.getRole();
             info.push(employee);
     }})
-    console.log(info);
+    // console.log(info);
     
     fs.writeFile('./dist/index.html',writeHTML, (err) =>
-        err ? console.error(err) : console.log('Success!'))
+        err ? console.error(err) : console.log('wroteFile!'))
 
     info.forEach(employee =>{
         if(employee.hasOwnProperty('officeNumber')){
-            let employee = "manager"
             appendCards(employee)
         }else if(employee.hasOwnProperty('github')){
-            let employee = "engineer"
             appendCards(employee)
         }else{
-            let employee = "intern"
             appendCards(employee)
         }})
 
     fs.appendFile('./dist/index.html', endHTML, (err) =>
-    err ? console.error(err) : console.log ('Card appended!'))
+    err ? console.error(err) : console.log ('appendedFile!'))
     }
 
 

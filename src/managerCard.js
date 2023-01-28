@@ -1,9 +1,12 @@
-const managerCard = `<div class="card text-white bg-primary mb-3 col-2 ">
-<div class="card-header text-center">Manager  <i class="fa-solid fa-mug-saucer text-success"></i>   ID:<span class="text-info">  1</span></div>
+
+const  managerCard = (object) => { 
+    return`<div class="card text-white bg-primary mb-3 col-2 ">
+<div class="card-header text-center">${object.getRole()}  <i class="fa-solid fa-mug-saucer text-success"></i>   ID:<span class="text-info">  ${object.getID()}</span></div>
 <div class="card-body">
-  <h4 class="card-title">The Manager</h4>
-  <p class="card-text fs-6">The Manager's office number is: officeNumber</p>
+  <h4 class="card-title">${object.name}</h4>
+  <p class="card-text fs-6">${object.name}'s office number is: ${object.officeNumber}</p>
+  <p class="card-text fs-6">${object.name}'s email is: ${object.getEmail()}</p>
 </div>
-</div>`
+</div>`}
 
 module.exports = managerCard
