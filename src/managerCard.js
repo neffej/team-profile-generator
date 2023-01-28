@@ -1,4 +1,4 @@
-const card = `<div class="card text-white bg-primary mb-3 col-2 ">
+const managerCard = `<div class="card text-white bg-primary mb-3 col-2 ">
 <div class="card-header text-center">Manager  <i class="fa-solid fa-mug-saucer text-success"></i>   ID:<span class="text-info">  1</span></div>
 <div class="card-body">
   <h4 class="card-title">The Manager</h4>

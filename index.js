@@ -8,10 +8,14 @@ const Engineer = require ('./lib/Engineer')
 const Employee = require ('./lib/Employee')
 
 // Helper Functions
-const writeHTML = require('./src/writeHTML')
+const writeHTML = require('./src/writeHTML');
+const managerCard = require('./src/managerCard');
+const internCard = require('./src/internCard');
+const engineerCard = require('./src/engineerCard');
+const endHTML = require('./src/endHTML');
 
 const team = [];
-const profiles = [];
+const info = [];
 
 
 
@@ -108,6 +112,23 @@ const internQuestions = [
         choices: ["Engineer", "Intern", "No, my team is complete"]    }
 ];
 
+function appendCards(element){
+    switch(element){
+        case "manager":
+            fs.appendFile('./dist/index.html', managerCard,(err) =>
+            err ? console.error(err) : console.log ('Card appended!'))
+            break;
+        case "engineer":
+            fs.appendFile('./dist/index.html', engineerCard, (err) =>
+            err ? console.error(err) : console.log ('Card appended!'))
+            break;
+        case "intern":
+            fs.appendFile('./dist/index.html', internCard, (err) =>
+            err ? console.error(err) : console.log ('Card appended!'))
+            break;
+    }
+}
+
 function generateHTML(team){
     console.info("hello!")
     team.forEach(member => {
@@ -117,23 +138,39 @@ function generateHTML(team){
             const { officeNumber } = member
             let employee = new Manager(name, id, email, officeNumber)
             employee.getRole();
-            profiles.push(employee);
+            info.push(employee);
         }else if(member.github != undefined){
             const { github} = member
             let employee = new Engineer(name, id, email, github)
             employee.getRole();
-            profiles.push(employee);
+            info.push(employee);
         }else if(member.school != undefined){
             const { school } = member
             let employee = new Intern(name, id, email, school)
             employee.getRole();
-            profiles.push(employee);
+            info.push(employee);
     }})
-    console.log(profiles);
+    console.log(info);
     
     fs.writeFile('./dist/index.html',writeHTML, (err) =>
         err ? console.error(err) : console.log('Success!'))
-}
+
+    info.forEach(employee =>{
+        if(employee.hasOwnProperty('officeNumber')){
+            let employee = "manager"
+            appendCards(employee)
+        }else if(employee.hasOwnProperty('github')){
+            let employee = "engineer"
+            appendCards(employee)
+        }else{
+            let employee = "intern"
+            appendCards(employee)
+        }})
+
+    fs.appendFile('./dist/index.html', endHTML, (err) =>
+    err ? console.error(err) : console.log ('Card appended!'))
+    }
+
 
 // Generic function to load question arrays into inquirer.prompt. Responses are pushed to team array.
 function askQuestions(array) {
@@ -151,13 +188,11 @@ function askQuestions(array) {
                 generateHTML(team);
             break;
         }
-    console.info(team);
     })
 };
 
 
 function init(){
-    console.info(team)
     inquirer.prompt(initQuestions)
     .then((response) => {
         if(response.intro === false){

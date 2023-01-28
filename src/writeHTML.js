@@ -14,9 +14,6 @@ const website = `
 
     <body class="container w-100">
         <div class="row d-flex justify-content-center align-items-center w-100" id="card-container">
-        </div>
-    </body>
-</html>
 `
 
 module.exports = website
