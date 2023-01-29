@@ -145,7 +145,7 @@ function appendICards(element){
 // Second, index.html template file is written in the dist folder.
 // Third, employee cards are appended to the index file according to their class.
 // Finally, closing HTML tags are appended to the HTML to finish the document creation.
-function generateHTML(team){
+function makeHTML(team){
     team.forEach(member => {
         const { name, id, email, } = member
         let employee = new Employee(name, id, email)
@@ -195,7 +195,7 @@ function askQuestions(array) {
                 askQuestions(internQuestions)
             break;
             case 'No, my team is complete': 
-                generateHTML(team);
+                makeHTML(team);
             break;
         }
     })
