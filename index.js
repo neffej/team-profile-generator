@@ -14,11 +14,12 @@ const internCard = require('./src/internCard');
 const engineerCard = require('./src/engineerCard');
 const endHTML = require('./src/endHTML');
 
+// Holder arrays
 const team = [];
 const info = [];
 
 
-
+// Question arrays
 const initQuestions = [
     {
         type: 'confirm',
@@ -112,6 +113,7 @@ const internQuestions = [
         choices: ["Engineer", "Intern", "No, my team is complete"]    }
 ];
 
+// The following three functions append HTML script to the index.html file. These appendations are populated with info from user answers to inquirer prompts.
 function appendMCards(element){
     console.log(element)
             let object = element;
@@ -138,8 +140,12 @@ function appendICards(element){
             err ? console.error(err) : console.log ('Card appended!'))  
     }
 
+// This functions fulfills four functions en route to creating a functional index.html document
+// First, forEach loops through team array to declare objects as their specific class.
+// Second, index.html template file is written in the dist folder.
+// Third, employee cards are appended to the index file according to their class.
+// Finally, closing HTML tags are appended to the HTML to finish the document creation.
 function generateHTML(team){
-    console.info("hello!")
     team.forEach(member => {
         const { name, id, email, } = member
         let employee = new Employee(name, id, email)
@@ -158,7 +164,6 @@ function generateHTML(team){
             employee.getRole();
             info.push(employee);
     }})
-    // console.log(info);
     
     fs.writeFile('./dist/index.html',writeHTML, (err) =>
         err ? console.error(err) : console.log('wroteFile!'))
